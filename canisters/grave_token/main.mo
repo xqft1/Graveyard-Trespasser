@@ -1,5 +1,5 @@
 // File: main.mo
-// Updated ICRC-1 and ICRC-2 implementations for ICPswap & Kongswap compatibility.
+// Updated ICRC-1 and ICRC-2 implementations for ICPswap compatibility.
 
 import Array "mo:base/Array";
 import Blob "mo:base/Blob";
