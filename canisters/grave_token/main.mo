@@ -652,38 +652,19 @@ persistent actor GraveToken {
   };
 
   public shared(msg) func setPoolPrincipal(p : Principal) : async Result.Result<(), Text> {
-    if (msg.caller != controllerPrincipal) return #err("Unauthorized");
-
-    poolPrincipal := p;
-
-    // Keep poolAccount in sync: LP account-id for subaccount = 1
-    let sub1 : Blob = Blob.fromArray(
-      Array.tabulate<Nat8>(32, func (i : Nat) : Nat8 {
-        if (i == 31) 1 else 0
-      })
-    );
-    poolAccount := Principal.toLedgerAccount(poolPrincipal, ?sub1);
-
-    #ok(())
+    // Permanently disabled in final, trustless version.
+    #err("setPoolPrincipal disabled after blackhole")
   };
 
+
   public shared(msg) func setLogo(uri : Text) : async Result.Result<(), Text> {
-    if (msg.caller != controllerPrincipal) return #err("Unauthorized");
-    logo := ?uri;
-    #ok(())
+    // Permanently disabled in final, trustless version.
+    #err("setLogo disabled after blackhole")
   };
 
   public shared(msg) func adminMint(to : Principal, quantity : Nat) : async Result.Result<Nat, Text> {
-    if (msg.caller != controllerPrincipal) return #err("Unauthorized");
-    if (quantity == 0) return #err("Quantity must be > 0");
-
-    totalSupply += quantity;
-
-    let acc : Account = { owner = to; subaccount = null };
-    let bal = switch (balanceMap.get(acc)) { case (?b) b; case null 0 };
-    balanceMap.put(acc, bal + quantity);
-
-    #ok(quantity)
+    // Permanently disabled in final, trustless version.
+    #err("adminMint disabled after blackhole")
   };
 
   public query func getPoolAccount() : async Blob {
