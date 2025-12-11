@@ -5,6 +5,7 @@ import Time "mo:base/Time";
 import Nat "mo:base/Nat";
 import Int "mo:base/Int";
 import Debug "mo:base/Debug";
+import Timer "mo:base/Timer";
 
 import ICRC "icrc_types";
 import Pool "icpswap_pool";
@@ -382,4 +383,11 @@ persistent actor GraveAutoStaker {
     switch (newMinTick_) { case (?v) minTick := v;        case null {} };
     switch (newMaxTick_) { case (?v) maxTick := v;        case null {} };
   };
+
+  // ------------------------------------------------------------------
+  // AUTOMATION: run checkAndStake every 24 hours
+  // ------------------------------------------------------------------
+
+  // This sets up a recurring timer that calls checkAndStake() every 24 hours.
+  ignore Timer.recurringTimer(#seconds(24 * 60 * 60), checkAndStake);
 }
